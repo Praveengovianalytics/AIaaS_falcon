@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "aiaas-falcon"
+version = "0.1.0"
+description = "This python package help to interact with Generative AI - Large Language Models. It interacts with AIaaS LLM , AIaaS embedding , AIaaS Audio set of APIs to cater the request."
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+google-api-core = "^2.12.0"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

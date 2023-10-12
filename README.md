@@ -104,7 +104,8 @@ The Falcon API Client simplifies interactions with the specified API, providing 
 - [@zhuofan](https://github.com/zhuofan-16)
 
 
-
+## Google Colab 
+- [ Get start with aiaas_falcon ]] (https://colab.research.google.com/drive/1k5T_FO9SnlN0zOQfR7WFXSRFkfgiL1cE?usp=sharing)
 ## Badges
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)

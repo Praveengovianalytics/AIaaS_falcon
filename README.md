@@ -3,21 +3,24 @@
 
 ## Description
 
-A Python client to interact with a specific API, allowing operations such as listing models, creating embeddings, and generating text based on certain configurations.
+Generative AI - LLM library interacts with specific API, allowing operations such as listing models, creating embeddings, and generating text based on certain configurations.
 
 ## Installation
 
 Ensure you have the `requests` and `google-api-core` libraries installed:
 
+```bash
+pip install aiaas-falcon
+```
 
 ## Usage
 
 1. **Initialization:**
 
    ```python
-   from falcon_client import Falcon  # Assuming the class is saved in a file named falcon_client.py
+   from aiaas_falcon import Falcon # Assuming the class is saved in a file named falcon_client.py
    
-   falcon_client = Falcon(api_key="<Your_API_Key>", host_name_port="<Your_Host_Name_Port>")
+   falcon = Falcon(api_key="<Your_API_Key>", host_name_port="<Your_Host_Name_Port>")
    ```
 
 2. **Listing Models:**
@@ -48,7 +51,8 @@ Ensure you have the `requests` and `google-api-core` libraries installed:
 - `generate_text(self, chat_history=[], query="", use_default=1, conversation_config={}, config={})` - Generates text based on provided parameters.
 
 ```python
-# assume the library is installed and available as aiaas_falcon
+# Example usage
+
 from aiaas_falcon import Falcon  # Make sure the Falcon class is imported
 
 # Initialize the Falcon object with the API key, host name and port
@@ -91,3 +95,16 @@ else:
 ## Conclusion
 
 The Falcon API Client simplifies interactions with the specified API, providing a straightforward way to perform various operations such as listing models, creating embeddings, and generating text.
+
+
+
+## Authors
+
+- [@Praveengovianalytics](https://github.com/Praveengovianalytics)
+- [@zhuofan](https://github.com/zhuofan-16)
+
+
+
+## Badges
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)

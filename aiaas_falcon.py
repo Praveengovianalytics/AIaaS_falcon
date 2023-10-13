@@ -1,6 +1,7 @@
 import requests
 from google.api_core import retry
 
+
 class Falcon:
     """
     Falcon class provides methods to interact with a specific API,

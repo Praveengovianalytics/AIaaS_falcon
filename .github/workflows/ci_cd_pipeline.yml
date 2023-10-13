@@ -28,8 +28,7 @@ jobs:
 
     - name: Commit changes made by black
       run: |
-        git diff --exit-code || (git commit -am "Code formatted with black" && git push)
-
+        git diff --exit-code && echo "No changes to commit" || (git config --global user.name 'GitHub Actions' && git config --global user.email 'actions@github.com' && git add -u && git commit -m "Code formatted with black" && git push)
 
     - name: Run flake8
       run: flake8

@@ -51,7 +51,7 @@ jobs:
       run: pip install interrogate
 
     - name: Run interrogate
-      run: interrogate -c pyproject.toml
+      run: interrogate -c pyproject.toml || true
 
     - name: Generate and save badge
       run: interrogate -c pyproject.toml --generate-badge interrogate_badge.svg

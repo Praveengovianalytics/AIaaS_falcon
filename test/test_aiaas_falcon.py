@@ -5,6 +5,7 @@ import pytest
 import requests
 from aiaas_falcon import Falcon  # make sure to import your Falcon class correctly
 
+
 # Define a fixture to get user inputs for api_key, host_name, and port
 @pytest.fixture(scope="module")
 def user_inputs():
@@ -12,6 +13,7 @@ def user_inputs():
     host_name = input("Enter Hostname: ")
     port = input("Enter Port: ")
     return api_key, f"{host_name}:{port}"
+
 
 def test_falcon_initialization(user_inputs):
     """
@@ -39,7 +41,7 @@ def test_list_models():
 
 
 @patch("requests.post")
-def test_create_embedding(mock_post,user_inputs):
+def test_create_embedding(mock_post, user_inputs):
     """
     Test the create_embedding method of the Falcon class with mocked external API call.
 
@@ -57,7 +59,7 @@ def test_create_embedding(mock_post,user_inputs):
 
 
 @patch("requests.post")
-def test_generate_text(mock_post,user_inputs):
+def test_generate_text(mock_post, user_inputs):
     """
     Test the generate_text method of the Falcon class with mocked external API call.
 
@@ -75,7 +77,7 @@ def test_generate_text(mock_post,user_inputs):
 
 
 @patch("requests.post")
-def test_create_embedding_time(mock_post,user_inputs):
+def test_create_embedding_time(mock_post, user_inputs):
     """
     Test the create_embedding method of the Falcon class with a time constraint.
 
@@ -95,7 +97,7 @@ def test_create_embedding_time(mock_post,user_inputs):
 
 
 @patch("requests.post")
-def test_generate_text_time(mock_post,user_inputs):
+def test_generate_text_time(mock_post, user_inputs):
     """
     Test the generate_text method of the Falcon class with a time constraint.
 

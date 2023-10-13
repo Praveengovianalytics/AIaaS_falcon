@@ -1,5 +1,8 @@
+![AIaaS Falcon Logo](img/AIAAS_FALCON.jpg)
 
 # AIaaS Falcon
+
+![Documentation Coverage](interrogate_badge.svg)
 
 ## Description
 
@@ -50,6 +53,8 @@ pip install aiaas-falcon
 - `create_embedding(self, file_path)` - Creates embeddings from a provided file.
 - `generate_text(self, chat_history=[], query="", use_default=1, conversation_config={}, config={})` - Generates text based on provided parameters.
 
+### Example usage:
+
 ```python
 # Example usage
 
@@ -91,21 +96,19 @@ else:
     print("No suitable model found")
 ```
 
-
 ## Conclusion
 
 The Falcon API Client simplifies interactions with the specified API, providing a straightforward way to perform various operations such as listing models, creating embeddings, and generating text.
-
-
 
 ## Authors
 
 - [@Praveengovianalytics](https://github.com/Praveengovianalytics)
 - [@zhuofan](https://github.com/zhuofan-16)
 
-
 ## Google Colab 
-- [ Get start with aiaas_falcon ]] (https://colab.research.google.com/drive/1k5T_FO9SnlN0zOQfR7WFXSRFkfgiL1cE?usp=sharing)
+
+- [Get start with aiaas_falcon](https://colab.research.google.com/drive/1k5T_FO9SnlN0zOQfR7WFXSRFkfgiL1cE?usp=sharing)
+
 ## Badges
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)

@@ -89,9 +89,8 @@ def test_create_embedding_time(mock_post, user_inputs):
 
     falcon = Falcon(api_key=api_key, host_name_port=host_name_port)
     start_time = time.time()  # Record the start time before the request
-    #response = falcon.create_embedding(file_path=["test_file_path"])
+    _ = falcon.create_embedding(file_path=["test_file_path"])
     end_time = time.time()  # Record the end time after the request
-
     assert end_time - start_time < 60  # Ensure the request completes within 60 seconds
 
 
@@ -109,7 +108,6 @@ def test_generate_text_time(mock_post, user_inputs):
 
     falcon = Falcon(api_key=api_key, host_name_port=host_name_port)
     start_time = time.time()  # Record the start time before the request
-    #response = falcon.generate_text(query="Hello?")
+    _ = falcon.generate_text(query="Hello?")
     end_time = time.time()  # Record the end time after the request
-
     assert end_time - start_time < 10  # Ensure the request completes within 10 seconds

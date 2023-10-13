@@ -73,6 +73,7 @@ jobs:
         POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
       run: |
         poetry build
+        poetry config ${{ secrets.PYPI_TOKEN }}
         poetry publish --build
 
     - name: Push badge to master

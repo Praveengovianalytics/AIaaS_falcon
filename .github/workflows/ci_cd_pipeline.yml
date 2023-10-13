@@ -39,7 +39,7 @@ jobs:
       run: flake8
 
     - name: Run isort
-      run: isort --check-only
+      run: isort . --check-only
 
     - name: Install interrogate
       run: pip install interrogate

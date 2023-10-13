@@ -23,7 +23,12 @@ jobs:
         pip install black flake8 isort poetry
 
     - name: Run black
-      run: black --check .
+      run: black .
+
+    - name: Commit changes made by black
+      run: |
+        git diff --exit-code || (git commit -am "Code formatted with black" && git push)
+
 
     - name: Run flake8
       run: flake8

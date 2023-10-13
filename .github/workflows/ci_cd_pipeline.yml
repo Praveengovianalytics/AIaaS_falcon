@@ -68,11 +68,10 @@ jobs:
     - name: Install poetry
       run: pip install poetry
 
-    - name: Build and publish
-      run: |
-        poetry build
-        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
-        poetry publish --build
+    - name: Build and Publish
+      run: poetry publish --build
+      env:
+        POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
 
     - name: Push badge to master
       run: |

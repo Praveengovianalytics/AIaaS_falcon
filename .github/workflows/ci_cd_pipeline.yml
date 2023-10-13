@@ -39,7 +39,13 @@ jobs:
       run: flake8
 
     - name: Run isort
-      run: isort . --check-only
+      run: isort .
+
+    - name: Commit changes made by isort
+      run: |
+        git diff --exit-code && echo "No changes to commit" || (git config --global user.name 'GitHub Actions' && git config --global user.email 'actions@github.com' && git add -u && git commit -m "Imports sorted by isort" && git push)
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
 
     - name: Install interrogate
       run: pip install interrogate

@@ -3,8 +3,7 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from aiaas_falcon import \
-    Falcon  # make sure to import your Falcon class correctly
+from aiaas_falcon import Falcon  # make sure to import your Falcon class correctly
 
 
 # Define a fixture to get user inputs for api_key, host_name, and port

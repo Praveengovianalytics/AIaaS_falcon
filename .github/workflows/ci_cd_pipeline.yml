@@ -71,7 +71,7 @@ jobs:
     - name: Build and publish
       run: |
         poetry build
-        poetry config ${{ secrets.PYPI_TOKEN }}
+        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
         poetry publish --build
 
     - name: Push badge to master

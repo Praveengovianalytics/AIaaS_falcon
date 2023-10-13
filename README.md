@@ -2,13 +2,22 @@
 
 # AIaaS Falcon
 
+
+<h4 align="center">
+    <p>
+        <a href="#shield-installation">Installation</a> |
+        <a href="#fire-quickstart">Quickstart</a> |
+    <p>
+</h4>
+
+
 ![Documentation Coverage](interrogate_badge.svg)
 
 ## Description
 
-Generative AI - LLM library interacts with specific API, allowing operations such as listing models, creating embeddings, and generating text based on certain configurations.
+AIaaS_Falcon is Generative AI - LLM library interacts with open source LLMs such as llama2 , mistral  & Orca APIs, allowing operations such as listing models, creating embeddings, and generating text based on certain configurations.AIaaS_Falcon helps to invoking the RAG pipeline in seconds.
 
-## Installation
+## :shield: Installation
 
 Ensure you have the `requests` and `google-api-core` libraries installed:
 
@@ -16,44 +25,22 @@ Ensure you have the `requests` and `google-api-core` libraries installed:
 pip install aiaas-falcon
 ```
 
-## Usage
 
-1. **Initialization:**
+if you want to install from source
 
-   ```python
-   from aiaas_falcon import Falcon # Assuming the class is saved in a file named falcon_client.py
-   
-   falcon = Falcon(api_key="<Your_API_Key>", host_name_port="<Your_Host_Name_Port>")
-   ```
+```bash
+git clone https://github.com/Praveengovianalytics/AIaaS_falcon && cd AIaaS_falcon
+pip install -e .
+```
 
-2. **Listing Models:**
-
-   ```python
-   models = falcon_client.list_models()
-   print(models)
-   ```
-
-3. **Creating an Embedding:**
-
-   ```python
-   response = falcon_client.create_embedding(file_path="<Your_File_Path>")
-   print(response)
-   ```
-
-4. **Generating Text:**
-
-   ```python
-   response = falcon_client.generate_text(chat_history=[], query="<Your_Query>")
-   print(response)
-   ```
-
-## Methods
+### Methods
 
 - `list_models(self)` - Retrieves available models.
 - `create_embedding(self, file_path)` - Creates embeddings from a provided file.
 - `generate_text(self, chat_history=[], query="", use_default=1, conversation_config={}, config={})` - Generates text based on provided parameters.
 
-### Example usage:
+
+## :fire: Quickstart
 
 ```python
 # Example usage
@@ -98,14 +85,14 @@ else:
 
 ## Conclusion
 
-The Falcon API Client simplifies interactions with the specified API, providing a straightforward way to perform various operations such as listing models, creating embeddings, and generating text.
+AIaaS_Falcon library simplifies interactions with the LLM API's, providing a straightforward way to perform various operations such as listing models, creating embeddings, and generating text.
 
 ## Authors
 
 - [@Praveengovianalytics](https://github.com/Praveengovianalytics)
 - [@zhuofan](https://github.com/zhuofan-16)
 
-## Google Colab 
+## Google Colab
 
 - [Get start with aiaas_falcon](https://colab.research.google.com/drive/1k5T_FO9SnlN0zOQfR7WFXSRFkfgiL1cE?usp=sharing)
 

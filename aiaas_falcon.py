@@ -9,7 +9,7 @@ class Falcon:
     and generating text based on certain configurations.
     """
 
-    def __init__(self, api_key=None, host_name_port=None, transport=None,protocol='http'):
+    def __init__(self, api_key=None, host_name_port=None, api_type='',transport=None,protocol='http'):
         """
         Initialize the Falcon object with API key, host name and port, and transport.
 
@@ -18,7 +18,8 @@ class Falcon:
         :param transport: Transport protocol (not currently used)
         """
         self.api_key = api_key  # API key for authentication
-        self.host_name_port = host_name_port  # host and port information
+        api_type=f'/{api_type}' if api_type else ''
+        self.host_name_port = host_name_port+f'{api_type}'  # host and port information
         self.transport = transport  # transport protocol (not used)
         self.protocol=protocol
         self.headers = {
@@ -32,6 +33,7 @@ class Falcon:
         :return: A dictionary containing available models.
         """
         url = f"{self.protocol}://{self.host_name_port}/v1/chat/get_model"
+
         response = requests.get(url)
 
         return response.json()

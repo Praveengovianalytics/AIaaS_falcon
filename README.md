@@ -48,7 +48,7 @@ pip install -e .
 from aiaas_falcon import Falcon  # Make sure the Falcon class is imported
 
 # Initialize the Falcon object with the API key, host name and port
-falcon = Falcon(api_key='_____API_KEY_____', host_name_port='34.16.138.59:8888', transport="rest",protocol="http")
+falcon = Falcon(api_key='_____API_KEY_____', host_name_port='34.16.138.59:8888', api_type='aiaas_llm',transport="rest",protocol="http")
 
 # List available models
 model = falcon.list_models()

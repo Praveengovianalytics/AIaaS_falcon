@@ -34,7 +34,7 @@ class Falcon:
         """
         url = f"{self.protocol}://{self.host_name_port}/v1/chat/get_model"
 
-        response = requests.get(url)
+        response = requests.get(url,verify=False)
 
         return response.json()
 
@@ -69,7 +69,7 @@ class Falcon:
         }  # headers with API key
 
         # Making a POST request to the API
-        response = requests.post(url, headers=headers, files=files, data=data)
+        response = requests.post(url, headers=headers, verify=False,files=files, data=data)
         response.raise_for_status()  # raising exception for HTTP errors
         return response.json()  # returning JSON response
 
@@ -123,6 +123,6 @@ class Falcon:
         }  # headers with API key
 
         # Making a POST request to the API
-        response = requests.post(url, headers=headers, json=data)
+        response = requests.post(url, headers=headers, verify=False,json=data)
         response.raise_for_status()  # raising exception for HTTP errors
         return response.json()  # returning JSON response

@@ -63,7 +63,7 @@ if model:
 
     # Define a prompt
     prompt = 'What is Account status key?'
-
+    
     # Generate text based on the prompt and other parameters
     completion = falcon.generate_text(
          query=prompt,
@@ -85,6 +85,25 @@ if model:
 else:
     print("No suitable model found")
 ```
+## Azure OpenAI
+We also have support for azure OpenAI gpt-3.5-turbo-16k endpoint.
+```
+    completion = falcon.generate_text(
+         query=prompt,
+         chat_history=[],
+         use_default=1,
+         use_file=0,
+         type="general",
+         conversation_config={
+            "k": 5,
+            "fetch_k": 50000,
+            "bot_context_setting": "Do note that Your are a data dictionary bot. Your task is to fully answer the user's query based on the information provided to you."
+         },
+         config={"model":"openai","api_key":"AZURE_OPENAI_TOKEN","api_address":"https://XXXXXXXX.openai.azure.com/","max_new_tokens": 1200, "temperature": 0.4, "top_k": 40, "top_p": 0.95, "batch_size": 256}
+    )
+
+```
+
 
 ## Conclusion
 

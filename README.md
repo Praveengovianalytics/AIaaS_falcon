@@ -34,10 +34,10 @@ pip install -e .
 ```
 
 ### Methods
-
+- `health(self)` - Check Health Status of Endpoint
 - `list_models(self)` - Retrieves available models.
 - `create_embedding(self, file_path)` - Creates embeddings from a provided file.
-- `generate_text(self, chat_history=[], query="", use_default=1, conversation_config={}, config={})` - Generates text based on provided parameters.
+- `generate_text(self, chat_history=[], query="",use_file=0,type="general", use_default=1, conversation_config={}, config={})` - Generates text based on provided parameters.
 
 
 ## :fire: Quickstart
@@ -48,32 +48,35 @@ pip install -e .
 from aiaas_falcon import Falcon  # Make sure the Falcon class is imported
 
 # Initialize the Falcon object with the API key, host name and port
-falcon = Falcon(api_key='_____API_KEY_____', host_name_port='34.16.138.59:8888', transport="rest")
+falcon = Falcon(api_key='_____API_KEY_____', host_name_port='34.16.138.59:8888', transport="rest",protocol="http")
 
 # List available models
-model = falcon.list_models()['models']
+model = falcon.list_models()
+print(model)
 
 # Check if any model is available
 if model:
     # Create an embedding
-    response = falcon.create_embedding(['/content/01Aug2023.csv'])
+    response = falcon.create_embedding(['/content/01Aug2023.csv'],'general')
     print(response)
     print('Embedding Success')
 
     # Define a prompt
     prompt = 'What is Account status key?'
-
+    
     # Generate text based on the prompt and other parameters
     completion = falcon.generate_text(
          query=prompt,
          chat_history=[],
          use_default=1,
+         use_file=1,
+         type="general",
          conversation_config={
             "k": 5,
             "fetch_k": 50000,
             "bot_context_setting": "Do note that Your are a data dictionary bot. Your task is to fully answer the user's query based on the information provided to you."
          },
-         config={"max_new_tokens": 1200, "temperature": 0.4, "top_k": 40, "top_p": 0.95, "batch_size": 256}
+         config={"model":"mistral-7b","max_new_tokens": 1200, "temperature": 0.4, "top_k": 40, "top_p": 0.95, "batch_size": 256}
     )
 
     print(completion)
@@ -82,6 +85,25 @@ if model:
 else:
     print("No suitable model found")
 ```
+## Azure OpenAI
+We also have support for azure OpenAI gpt-3.5-turbo-16k endpoint.
+```
+    completion = falcon.generate_text(
+         query=prompt,
+         chat_history=[],
+         use_default=1,
+         use_file=0,
+         type="general",
+         conversation_config={
+            "k": 5,
+            "fetch_k": 50000,
+            "bot_context_setting": "Do note that Your are a data dictionary bot. Your task is to fully answer the user's query based on the information provided to you."
+         },
+         config={"model":"openai","api_key":"AZURE_OPENAI_TOKEN","api_address":"https://XXXXXXXX.openai.azure.com/","max_new_tokens": 1200, "temperature": 0.4, "top_k": 40, "top_p": 0.95, "batch_size": 256}
+    )
+
+```
+
 
 ## Conclusion
 

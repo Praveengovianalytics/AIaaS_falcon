@@ -9,7 +9,7 @@ class Falcon:
     and generating text based on certain configurations.
     """
 
-    def __init__(self, api_key=None, host_name_port=None, transport=None):
+    def __init__(self, api_key=None, host_name_port=None, transport=None,protocol='http'):
         """
         Initialize the Falcon object with API key, host name and port, and transport.
 
@@ -20,6 +20,7 @@ class Falcon:
         self.api_key = api_key  # API key for authentication
         self.host_name_port = host_name_port  # host and port information
         self.transport = transport  # transport protocol (not used)
+        self.protocol=protocol
         self.headers = {
             "Authorization": api_key,
         }  # headers for authentication
@@ -30,22 +31,36 @@ class Falcon:
 
         :return: A dictionary containing available models.
         """
-        return {"models": "llama2"}
+        url = f"{self.protocol}://{self.host_name_port}/v1/chat/get_model"
+        response = requests.get(url)
 
-    def create_embedding(self, file_path):
+        return response.json()
+
+    def health(self):
+        """
+        List the available models from the API.
+
+        :return: A dictionary containing available models.
+        """
+        url = f"{self.protocol}://{self.host_name_port}/v1/chat/ping"
+        response = requests.get(url)
+
+        return response.json()
+
+    def create_embedding(self, file_path, type='general'):
         """
         Create embeddings by sending files to the API.
 
         :param file_path: Paths of the files to be uploaded
         :return: JSON response from the API
         """
-        url = f"http://{self.host_name_port}/v1/chat/create_embeddingLB"
+        url = f"{self.protocol}://{self.host_name_port}/v1/chat/create_embeddingLB"
 
         # Opening files in read mode
         files = [("file", open(item, "r")) for item in file_path]
 
         # Preparing data with file extensions
-        data = {"extension": ["".join(item.split(".")[-1]) for item in file_path]}
+        data = {"extension": ["".join(item.split(".")[-1]) for item in file_path], "type": type}
 
         headers = {
             "X-API-Key": self.api_key,
@@ -58,22 +73,25 @@ class Falcon:
 
     @retry.Retry()
     def generate_text(
-        self,
-        chat_history=[],
-        query="",
-        use_default=1,
-        conversation_config={
-            "k": 2,
-            "fetch_k": 50,
-            "bot_context_setting": "Do note that You are a data dictionary bot. Your task is to fully answer the user's query based on the information provided to you.",
-        },
-        config={
-            "max_new_tokens": 1200,
-            "temperature": 0.4,
-            "top_k": 40,
-            "top_p": 0.95,
-            "batch_size": 256,
-        },
+            self,
+            chat_history=[],
+            query="",
+            use_file=0,
+            use_default=1,
+            type='general',
+            conversation_config={
+                "k": 8,
+                "fetch_k": 100000,
+                "bot_context_setting": "Do note that You are a data dictionary bot. Your task is to fully answer the user's query based on the information provided to you.",
+            },
+            config={
+                "model": 'mistral-7b',
+                "max_new_tokens": 1200,
+                "temperature": 0.4,
+                "top_k": 40,
+                "top_p": 0.95,
+                "batch_size": 256,
+            },
     ):
         """
         Generate text by sending data to the API.
@@ -85,15 +103,17 @@ class Falcon:
         :param config: Other configuration parameters
         :return: JSON response from the API
         """
-        url = f"http://{self.host_name_port}/v1/chat/predictLB"
+        url = f"{self.protocol}://{self.host_name_port}/v1/chat/predictLB"
 
         # Preparing data to be sent in the request
         data = {
             "chat_history": chat_history,
             "query": query,
             "use_default": use_default,
+            'use_file': use_file,
             "conversation_config": conversation_config,
             "config": config,
+            'type': type
         }
 
         headers = {

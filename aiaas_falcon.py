@@ -126,3 +126,53 @@ class Falcon:
         response = requests.post(url, headers=headers, verify=False,json=data)
         response.raise_for_status()  # raising exception for HTTP errors
         return response.json()  # returning JSON response
+
+    @retry.Retry()
+    def generate_text_lah(
+            self,
+            query="",
+            context="",
+            config={
+                "model": 'zephyr-7b',
+                "max_new_tokens": 1200,
+                "temperature": 0.4,
+                "top_k": 40,
+                "top_p": 0.95,
+                "batch_size": 256,
+            },
+    ):
+        """
+        Generate text by sending data to the API.
+
+        :param chat_history: Chat history for context
+        :param query: Query to be asked
+        :param use_default: Flag to use default configuration
+        :param conversation_config: Conversation configuration parameters
+        :param config: Other configuration parameters
+        :return: JSON response from the API
+        """
+        url = f"{self.protocol}://{self.host_name_port}/v1/chat/predictLB"
+
+        # Preparing data to be sent in the request
+        type='general'
+
+        data = {
+            "chat_history": [],
+            "query": query,
+            "use_default": 1,
+            'use_file': 0,
+            "conversation_config": {"k": 8,
+                "fetch_k": 100000,
+                "bot_context_setting":context},
+            "config": config,
+            'type': type
+        }
+
+        headers = {
+            "X-API-Key": self.api_key,
+        }  # headers with API key
+
+        # Making a POST request to the API
+        response = requests.post(url, headers=headers, verify=False,json=data)
+        response.raise_for_status()  # raising exception for HTTP errors
+        return response.json()  # returning JSON response

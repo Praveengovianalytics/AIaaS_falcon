@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aiaas-falcon"
-version = "0.1.7.0"
+version = "0.1.7.1"
 description = "This python package help to interact with Generative AI - Large Language Models. It interacts with AIaaS LLM , AIaaS embedding , AIaaS Audio set of APIs to cater the request."
 authors = ["Your Name <you@example.com>"]
 license = "MIT"

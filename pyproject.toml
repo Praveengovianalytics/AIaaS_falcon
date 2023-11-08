@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aiaas-falcon"
-version = "0.1.7.1"
+version = "0.1.8.0"
 description = "This python package help to interact with Generative AI - Large Language Models. It interacts with AIaaS LLM , AIaaS embedding , AIaaS Audio set of APIs to cater the request."
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
@@ -15,6 +15,7 @@ interrogate = "^1.5.0"
 isort = "^5.12.0"
 black = "^23.9.1"
 pytest = "^7.4.2"
+pandas = ">=1.0.0,<1.4.0"
 
 
 [build-system]

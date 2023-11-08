@@ -1,6 +1,7 @@
 import requests
 from google.api_core import retry
-
+import numpy as np
+import requests
 
 class Falcon:
     """
@@ -176,3 +177,24 @@ class Falcon:
         response = requests.post(url, headers=headers, verify=False,json=data)
         response.raise_for_status()  # raising exception for HTTP errors
         return response.json()  # returning JSON response
+
+
+class FalconAudio:
+    def __init__(self, host_name_port, protocol, api_key,api_type='transcribe', transport=None):
+        self.api_url = f"{protocol}://{host_name_port}/{api_type}/audio_2_text"
+        self.api_key = api_key
+        self.headers = {
+            'Authorization': f'Bearer {self.api_key}'
+        }
+
+    def transcribe(self, audio_data:list,sampling_rate=16000):
+        payload = {
+            "audio": audio_data,
+            "sampling_rate": sampling_rate
+        }
+
+        response = requests.post(self.api_url, json=payload, headers=self.headers)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return response.text

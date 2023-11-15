@@ -184,7 +184,7 @@ class FalconAudio:
         self.api_url = f"{protocol}://{host_name_port}/{api_type}/audio_2_text"
         self.api_key = api_key
         self.headers = {
-            'Authorization': f'Bearer {self.api_key}'
+            "X-API-Key": self.api_key
         }
 
     def transcribe(self, audio_data:list,sampling_rate=16000):

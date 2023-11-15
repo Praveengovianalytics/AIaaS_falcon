@@ -77,24 +77,7 @@ class Falcon:
     @retry.Retry()
     def generate_text(
             self,
-            chat_history=[],
-            query="",
-            use_file=0,
-            use_default=1,
-            type='general',
-            conversation_config={
-                "k": 8,
-                "fetch_k": 100000,
-                "bot_context_setting": "Do note that You are a data dictionary bot. Your task is to fully answer the user's query based on the information provided to you.",
-            },
-            config={
-                "model": 'mistral-7b',
-                "max_new_tokens": 1200,
-                "temperature": 0.4,
-                "top_k": 40,
-                "top_p": 0.95,
-                "batch_size": 256,
-            },
+            query=""
     ):
         """
         Generate text by sending data to the API.
@@ -107,6 +90,28 @@ class Falcon:
         :return: JSON response from the API
         """
         url = f"{self.protocol}://{self.host_name_port}/v1/chat/predictLB"
+
+        conversation_config={
+                "k": 8,
+                "fetch_k": 100000,
+                "bot_context_setting":"" ,
+            }
+
+        use_file=0
+
+        chat_history=[]
+
+        use_default=1
+
+        type='general'
+
+        config={
+                "model": 'llama2-13b',
+                "max_new_tokens": 4000,
+                "temperature": 0,
+                "top_p": 0.95,
+                "batch_size": 256
+            }
 
         # Preparing data to be sent in the request
         data = {
@@ -134,12 +139,11 @@ class Falcon:
             query="",
             context="",
             config={
-                "model": 'zephyr-7b',
-                "max_new_tokens": 1200,
-                "temperature": 0.4,
-                "top_k": 40,
+                "model": 'llama2-13b',
+                "max_new_tokens": 4000,
+                "temperature": 0,
                 "top_p": 0.95,
-                "batch_size": 256,
+                "batch_size": 256
             },
     ):
         """

@@ -17,6 +17,28 @@
 
 AIaaS_Falcon is Generative AI - LLM library interacts with open source LLMs such as llama2 , mistral  & Orca APIs, allowing operations such as listing models, creating embeddings, and generating text based on certain configurations.AIaaS_Falcon helps to invoking the RAG pipeline in seconds.
 
+## Model Parameter Info
+
+- presence_penalty: Float that penalizes new tokens based on whether they
+            appear in the generated text so far. Values > 0 encourage the model
+            to use new tokens, while values < 0 encourage the model to repeat
+            tokens.
+- frequency_penalty: Float that penalizes new tokens based on their
+            frequency in the generated text so far. Values > 0 encourage the
+            model to use new tokens, while values < 0 encourage the model to
+            repeat tokens.
+- repetition_penalty: Float that penalizes new tokens based on whether
+            they appear in the generated text so far. Values > 1 encourage the
+            model to use new tokens, while values < 1 encourage the model to
+            repeat tokens.
+- temperature: Float that controls the randomness of the sampling. Lower
+            values make the model more deterministic, while higher values make
+            the model more random. Zero means greedy sampling.
+- top_k: Integer that controls the number of top tokens to consider. Set
+            to -1 to consider all tokens.
+- max_tokens: Maximum number of tokens to generate per output sequence.
+
+
 ## :shield: Installation
 
 Ensure you have the `requests` and `google-api-core` libraries installed:

@@ -143,6 +143,9 @@ class Falcon:
             max_new_tokens:int=4000,
             temperature:float=0,
             top_k:int=-1,
+            frequency_penalty:int=1,
+            repetition_penalty:int=1,
+            presence_penalty:float=1.5
     ):
         """_summary_
 
@@ -151,6 +154,9 @@ class Falcon:
             max_new_tokens (int, optional): _description_. Defaults to 4000 because llama2-13B model used.
             temperature (float, optional): _description_. Defaults to 0.
             top_k (int, optional): _description_. Defaults to -1.
+            frequency_penalty:int=1,
+            repetition_penalty:int=1,
+            presence_penalty:float=1.5
 
         Returns:
          //   [type]: JSON respose from the API Status:str message:list
@@ -163,7 +169,10 @@ class Falcon:
             "query": query,
             "temperature":temperature,
             "top_k":top_k,
-            "max_tokens":max_new_tokens
+            "max_tokens":max_new_tokens,
+            "frequency_penalty":frequency_penalty,
+            "repetition_penalty":repetition_penalty,
+            "presence_penalty":presence_penalty
         }
 
         headers = {

@@ -83,8 +83,16 @@ if model:
     print(completion)
     print("Generate Success")
 
+    ## llama2-13B Full model
+
+    completion_llama2_full_model = falcon.generate_text_full(query=prompt)
+    print(completion_llama2_full_model)
+    print("Generate Success")
+
 else:
     print("No suitable model found")
+
+
 ```
 ## Azure OpenAI
 We also have support for azure OpenAI gpt-3.5-turbo-16k endpoint.

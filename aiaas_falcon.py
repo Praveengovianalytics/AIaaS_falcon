@@ -133,6 +133,53 @@ class Falcon:
         response.raise_for_status()  # raising exception for HTTP errors
         return response.json()  # returning JSON response
 
+
+
+
+    @retry.Retry()
+    def generate_text_full(
+            self,
+            query:str="",
+            max_new_tokens:int=4000,
+            temperature:float=0,
+            top_k:int=-1,
+    ):
+        """_summary_
+
+        Args:
+            query (str, optional): _description_. Defaults to "".
+            max_new_tokens (int, optional): _description_. Defaults to 4000 because llama2-13B model used.
+            temperature (float, optional): _description_. Defaults to 0.
+            top_k (int, optional): _description_. Defaults to -1.
+
+        Returns:
+         //   [type]: JSON respose from the API Status:str message:list
+
+        """
+        url = f"{self.protocol}://{self.host_name_port}/v1/chat/predict-CCT"
+
+        # Preparing data to be sent in the request
+        data = {
+            "query": query,
+            "temperature":temperature,
+            "top_k":top_k,
+            "max_tokens":max_new_tokens
+        }
+
+        headers = {
+            "X-API-Key": self.api_key,
+        }  # headers with API key
+
+        # Making a POST request to the API
+        response = requests.post(url, headers=headers, verify=False,json=data)
+        response.raise_for_status()  # raising exception for HTTP errors
+        return response.json()  # returning JSON response
+
+
+
+
+
+
     @retry.Retry()
     def generate_text_lah(
             self,

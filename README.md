@@ -152,7 +152,7 @@ Parameter:
 
 ```python
 from aiaas_falcon import Falcon
-model=Falcon(api_name="azure_1",protocol='https',host_name_port='example.com',api_key='API_KEY',api_endpoint='azure')
+model=Falcon(api_name="azure_1",protocol='https',host_name_port='example.com',api_key='API_KEY',api_endpoint='azure',log_key="KEY")
 model.list_models()
 model.generate_text_full(query="Hello, introduce yourself",model='gpt-35-turbo-0613-vanilla',api_version='2023-05-15')
 

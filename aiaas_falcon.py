@@ -44,7 +44,7 @@ class Falcon:
 
         self.endpoint.append(
             {'name': api_name, 'url': f"{self.protocol}://{self.host_name_port}", 'type': api_endpoint, 'auth': api_key,
-             'headers': headers ,'log_id':self.log_id,"use_pil":use_pil,"log_key"}:log_key)
+             'headers': headers ,'log_id':self.log_id,"use_pil":use_pil,"log_key":log_key})
 
         self.current = 0
         self.falcon = Light(self.endpoint[self.current])

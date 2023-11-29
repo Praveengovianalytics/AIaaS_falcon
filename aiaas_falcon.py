@@ -13,7 +13,7 @@ class Falcon:
     """
 
     def __init__(self, api_key=None, api_name=None, api_endpoint='dev_quan', host_name_port='', api_type='',
-                 transport=None, protocol='http',use_pil=False):
+                 transport=None, protocol='http',use_pil=False,log_key=None):
         """
         Initialize the Falcon object with API key, host name and port, and transport.
 
@@ -44,7 +44,7 @@ class Falcon:
 
         self.endpoint.append(
             {'name': api_name, 'url': f"{self.protocol}://{self.host_name_port}", 'type': api_endpoint, 'auth': api_key,
-             'headers': headers ,'log_id':self.log_id,"use_pil":use_pil})
+             'headers': headers ,'log_id':self.log_id,"use_pil":use_pil,"log_key"}:log_key)
 
         self.current = 0
         self.falcon = Light(self.endpoint[self.current])
@@ -52,7 +52,7 @@ class Falcon:
 
     def current_active(self):
         return self.endpoint[self.current]
-    def add_endpoint(self, api_name,protocol,host_name_port,api_endpoint,api_key,use_pil=False):
+    def add_endpoint(self, api_name,protocol,host_name_port,api_endpoint,api_key,use_pil=False,log_key=None):
         self.log_id=random.randint(1000000, 9999999)
         if api_endpoint!='prod' and api_endpoint!='dev_full' and api_endpoint!='dev_quan' and api_endpoint!='azure':
             raise Exception("Invalid API Type")
@@ -70,7 +70,7 @@ class Falcon:
 
         self.endpoint.append(
             {'name': api_name, 'url': f"{protocol}://{host_name_port}", 'type': api_endpoint, 'auth': api_key,
-             'headers': headers,'log_id':self.log_id,"use_pil":use_pil})
+             'headers': headers,'log_id':self.log_id,"use_pil":use_pil,"log_key":log_key})
         return "Add Success"
 
     def list_endpoint(self):

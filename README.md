@@ -52,6 +52,7 @@ Parameter:
     - protocol: HTTP/ HTTPS
     - api_type: Subroute if needed
     - use_pil: Whether current endpoint need Personal Identifier Information Limit Protection
+    - log_key: Auth Key to use the Application
 - `current_active()`
 Check current endpoint active
 - `add_endpoint(api_name,protocol,host_name_port,api_endpoint,api_key,use_pil=False)`

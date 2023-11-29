@@ -1,0 +1,6 @@
+custom_handler:
+  before:
+    - name: " > Check Request"
+      prompt: "Check if in the target prompt the user is asking to format to json, reply 'Yes' if user is asking to format to json else reply 'No' "
+      accept: ["Yes"]
+      reject: ["No"]

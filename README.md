@@ -15,29 +15,13 @@
 
 ## Description
 
-AIaaS_Falcon is Generative AI - LLM library interacts with open source LLMs such as llama2 , mistral  & Orca APIs, allowing operations such as listing models, creating embeddings, and generating text based on certain configurations.AIaaS_Falcon helps to invoking the RAG pipeline in seconds.
+AIaaS_Falcon is Generative AI - LLM library interacts with different model api endpoints., allowing operations such as listing models, creating embeddings, and generating text based on certain configurations. AIaaS_Falcon helps to invoking the RAG pipeline in seconds. 
 
-## Model Parameter Info
-
-- presence_penalty: Float that penalizes new tokens based on whether they
-            appear in the generated text so far. Values > 0 encourage the model
-            to use new tokens, while values < 0 encourage the model to repeat
-            tokens.
-- frequency_penalty: Float that penalizes new tokens based on their
-            frequency in the generated text so far. Values > 0 encourage the
-            model to use new tokens, while values < 0 encourage the model to
-            repeat tokens.
-- repetition_penalty: Float that penalizes new tokens based on whether
-            they appear in the generated text so far. Values > 1 encourage the
-            model to use new tokens, while values < 1 encourage the model to
-            repeat tokens.
-- temperature: Float that controls the randomness of the sampling. Lower
-            values make the model more deterministic, while higher values make
-            the model more random. Zero means greedy sampling.
-- top_k: Integer that controls the number of top tokens to consider. Set
-            to -1 to consider all tokens.
-- max_tokens: Maximum number of tokens to generate per output sequence.
-
+## Supported Endpoint Types:
+- Azure OpenAI
+- SingtelGPT
+- Dev_Quantized
+- Dev_Full
 
 ## :shield: Installation
 
@@ -56,84 +40,123 @@ pip install -e .
 ```
 
 ### Methods
-- `health(self)` - Check Health Status of Endpoint
-- `list_models(self)` - Retrieves available models.
-- `create_embedding(self, file_path)` - Creates embeddings from a provided file.
-- `generate_text(self, chat_history=[], query="",use_file=0,type="general", use_default=1, conversation_config={}, config={})` - Generates text based on provided parameters.
+### `Falcon`  Class
+- `__init__ (config)`
+Intialise the Falcon object with endpoint configs. \
+Parameter: 
+    - api_key : API Key
+    - api_name: Name for endpoint
+    - api_endpoint: Type of endpoint ( can be azure, dev_quan, dev_full, prod)
+    - host_name_port: Host and Port Inforation
+    - use_pil: Activate Personal Identifier Information Limit Protection (Boolean)
+    - protocol: HTTP/ HTTPS
+    - api_type: Subroute if needed
+    - use_pil: Whether current endpoint need Personal Identifier Information Limit Protection
+- `current_active()`
+Check current endpoint active
+- `add_endpoint(api_name,protocol,host_name_port,api_endpoint,api_key,use_pil=False)`
+Add a new endpoint. \
+Parameter:
+    - api_key : API Key
+    - api_name: Name for endpoint
+    - api_endpoint: Type of endpoint ( can be azure, dev_quan, dev_full, prod)
+    - host_name_port: Host and Port Inforation
+    - use_pil: Activate Personal Identifier Information Limit Protection (Boolean)
+    - protocol: HTTP/ HTTPS
+    - use_pil: Whether current endpoint need Personal Identifier Information Limit Protection
+- `list_endpoint()`
+List out all endpoints in the endpoint management manager
+- `set_endpoint(name)`
+Set target endpoint to active \
+Parameter:
+    - name : Target endpoint's name
+ 
+- `remove_endpoint(name)`
+Delete endpoint by name \
+Parameter:
+    - name : Target endpoint's name
+
+- `current_pil()`
+Check current Personal Identifier Information Protection activation status
+
+- `switch_pil()`
+Switch current Personal Identifier Information Protection activation status
+- `list_models()`
+List out models available
+- `initalise_pil()`
+Download and intialise PII Protection. \
+Note: This does not activate PII but initialise dependencies
+
+- `health()`
+Check health of current endpoint
+
+- `create_embedding(file_path)`
+Create embeddings by sending files to the API. \
+Parameter:
+    - file_path: Path to file 
+
+- `generate_text_full(query="",
+            context="",
+            use_file=0,
+            model="",
+            chat_history=[],
+            max_new_tokens: int = 200,
+            temperature: float = 0,
+            top_k: int = -1,
+            frequency_penalty: int = 0,
+            repetition_penalty: int = 1,
+            presence_penalty: float = 0,
+            fetch_k=100000,
+            select_k=4,
+            api_version='2023-05-15',
+            guardrail={'jailbreak': False, 'moderation': False},
+            custom_guardrail=None)` \
+  Generate text using LLM endpoint. Note: Some parameter of the endpoint is endpoint-specific. \
+  Parameter: 
+  - query: a string of your prompt
+  - use_file: Whether to take file to context in generation. Only applies to dev_full and dev_quan. Need to `create_embedding` before use.
+  - model: a string on the model to use. You can use ` list_models` to check for model available.
+  - chat_history: an array of chat history between user and bot. Only applies to dev_full and dev_quan. (Beta)
+  - max_new_token: maximum new token to generate. Must be integer.
+  - temperature: Float that controls the randomness of the sampling. Lower
+        values make the model more deterministic, while higher values make
+        the model more random. Zero means greedy sampling.
+  - top_k: Integer that controls the number of top tokens to consider.
+  - frequency_penalty: Float that penalizes new tokens based on their
+        frequency in the generated text so far.
+  - repetition_penalty: Float that penalizes new tokens based on whether
+        they appear in the prompt and the generated text so far.
+  - presence_penalty: Float that penalizes new tokens based on whether they
+        appear in the generated text so far
+  - fetch_k: Use for document retrival. Include how many element in searching. Only applies when `use_file` is 1
+  - select k: Use to select number of document for document retrieval. Only applies when `use_file` is 1
+  - api_version: Only applies for azure endpoint
+  - guardrail: Whether to use the default jailbreak guardrail and moderation guardrail
+  - custom_guardrail: Path to custom guardrail .yaml file. The format can be found in sample.yaml
+  
+- ` evaluate_parameter(config)`
+Carry out grid search for parameter \
+Parameter:
+    - config: A dict. The dict must contain model and query. Parameter to grid search must be a list. 
+        - model: a string of model
+        - query: a string of query
+        - **other parameter (eg: "temperature":list(np.arange(0,2,0.5))
+- `decrypt_hash(encrypted_data)`
+Decret the configuration from experiment id.
+Parameter:
+    - encrypted_data: a string of id
 
 
 ## :fire: Quickstart
 
 ```python
-# Example usage
-
-from aiaas_falcon import Falcon  # Make sure the Falcon class is imported
-
-# Initialize the Falcon object with the API key, host name and port
-falcon = Falcon(api_key='_____API_KEY_____', host_name_port='34.16.138.59:8888',api_type='aiaas_llm',transport="rest",protocol="http")
-
-# List available models
-model = falcon.list_models()
-print(model)
-
-# Check if any model is available
-if model:
-    # Create an embedding
-    response = falcon.create_embedding(['/content/01Aug2023.csv'],'general')
-    print(response)
-    print('Embedding Success')
-
-    # Define a prompt
-    prompt = 'What is Account status key?'
-    
-    # Generate text based on the prompt and other parameters
-    # llama-13b chat model will be used for default
-    completion = falcon.generate_text(
-         query=prompt
-        #  chat_history=[],
-        #  use_default=1,
-        #  use_file=1,
-        #  type="general",
-        #  conversation_config={
-        #     "k": 5,
-        #     "fetch_k": 50000,
-        #     "bot_context_setting": "Do note that Your are a data dictionary bot. Your task is to fully answer the user's query based on the information provided to you."
-        #  },
-        #  config={"model":"mistral-7b","max_new_tokens": 1200, "temperature": 0.4, "top_k": 40, "top_p": 0.95, "batch_size": 256}
-    )
-
-    print(completion)
-    print("Generate Success")
-
-    ## llama2-13B Full model
-
-    completion_llama2_full_model = falcon.generate_text_full(query=prompt)
-    print(completion_llama2_full_model)
-    print("Generate Success")
-
-else:
-    print("No suitable model found")
-
+from aiaas_falcon import Falcon
+model=Falcon(api_name="azure_1",protocol='https',host_name_port='example.com',api_key='API_KEY',api_endpoint='azure')
+model.list_models()
+model.generate_text_full(query="Hello, introduce yourself",model='gpt-35-turbo-0613-vanilla',api_version='2023-05-15')
 
 ```
-## Azure OpenAI
-We also have support for azure OpenAI gpt-3.5-turbo-16k endpoint.
-```
-    completion = falcon.generate_text(
-         query=prompt,
-         chat_history=[],
-         use_default=1,
-         use_file=0,
-         type="general",
-         conversation_config={
-            "k": 5,
-            "fetch_k": 50000,
-            "bot_context_setting": "Do note that Your are a data dictionary bot. Your task is to fully answer the user's query based on the information provided to you."
-         },
-         config={"model":"openai","api_key":"AZURE_OPENAI_TOKEN","api_address":"https://XXXXXXXX.openai.azure.com/","max_new_tokens": 1200, "temperature": 0.4, "top_k": 40, "top_p": 0.95, "batch_size": 256}
-    )
 
-```
 
 
 ## Conclusion
@@ -147,7 +170,7 @@ AIaaS_Falcon library simplifies interactions with the LLM API's, providing a str
 
 ## Google Colab
 
-- [Get start with aiaas_falcon](https://colab.research.google.com/drive/1k5T_FO9SnlN0zOQfR7WFXSRFkfgiL1cE?usp=sharing)
+- [Get start with aiaas_falcon](https://colab.research.google.com/drive/1haZ-1fD4htQuNF2zzyrUSTP90KRls1dC?usp=sharing)
 
 ## Badges
 

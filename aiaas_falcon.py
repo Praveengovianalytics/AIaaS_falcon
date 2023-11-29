@@ -4,7 +4,7 @@ import random
 from google.api_core import retry
 import numpy as np
 import requests
-from aiaas_falcon_light import Light
+from aiaas_falcon_light.aiaas_falcon_light import Light
 class Falcon:
     """
     Falcon class provides methods to interact with a specific API,

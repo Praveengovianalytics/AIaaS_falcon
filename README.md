@@ -51,7 +51,7 @@ Parameter:
     - use_pil: Activate Personal Identifier Information Limit Protection (Boolean)
     - protocol: HTTP/ HTTPS
     - api_type: Subroute if needed
-    - use_pil: Whether current endpoint need Personal Identifier Information Limit Protection
+    - use_pii: Whether current endpoint need Personal Identifier Information Limit Protection
     - log_key: Auth Key to use the Application
 - `current_active()`
 Check current endpoint active
@@ -62,7 +62,7 @@ Parameter:
     - api_name: Name for endpoint
     - api_endpoint: Type of endpoint ( can be azure, dev_quan, dev_full, prod)
     - host_name_port: Host and Port Inforation
-    - use_pil: Activate Personal Identifier Information Limit Protection (Boolean)
+    - use_pii: Activate Personal Identifier Information Limit Protection (Boolean)
     - protocol: HTTP/ HTTPS
     - use_pil: Whether current endpoint need Personal Identifier Information Limit Protection
 - `list_endpoint()`
@@ -77,14 +77,14 @@ Delete endpoint by name \
 Parameter:
     - name : Target endpoint's name
 
-- `current_pil()`
+- `current_pii()`
 Check current Personal Identifier Information Protection activation status
 
-- `switch_pil()`
+- `switch_pii()`
 Switch current Personal Identifier Information Protection activation status
 - `list_models()`
 List out models available
-- `initalise_pil()`
+- `initalise_pii()`
 Download and intialise PII Protection. \
 Note: This does not activate PII but initialise dependencies
 

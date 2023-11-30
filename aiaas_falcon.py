@@ -244,6 +244,60 @@ class Falcon:
            )
 
     @retry.Retry()
+    def generate_text(
+            self,
+            query="",
+            context="",
+            model="llama2-13b",
+            use_file=0,
+            chat_history=[],
+            max_new_tokens: int = 4000,
+            temperature: float = 0,
+            top_k: int = -1,
+            frequency_penalty: int = 1,
+            repetition_penalty: int = 1,
+            presence_penalty: float = 1.5,
+            fetch_k=100000,
+            select_k=4,
+            api_version='2023-05-15',
+            guardrail={'jailbreak':False,'moderation':False},
+            custom_guardrail=None
+    ):
+        """_summary_
+
+        Args:
+            query (str, optional): _description_. Defaults to "".
+            max_new_tokens (int, optional): _description_. Defaults to 4000 because llama2-13B model used.
+            temperature (float, optional): _description_. Defaults to 0.
+            top_k (int, optional): _description_. Defaults to -1.
+            frequency_penalty:int=1,
+            repetition_penalty:int=1,
+            presence_penalty:float=1.5
+
+        Returns:
+         //   [type]: JSON respose from the API Status:str message:list
+
+        """
+        return self.falcon.generate_text(
+            model=model,
+               query=query,
+               context=context,
+               use_file=use_file,
+               chat_history=chat_history,
+               max_new_tokens=max_new_tokens,
+               temperature=temperature,
+               top_k=top_k,
+               frequency_penalty=frequency_penalty,
+               repetition_penalty=repetition_penalty,
+               presence_penalty=presence_penalty,
+               fetch_k=fetch_k,
+               select_k=select_k,
+               api_version=api_version,
+            guardrail=guardrail,
+            custom_guardrail=custom_guardrail
+           )
+
+    @retry.Retry()
     def generate_text_lah(
             self,
             query="",

@@ -361,7 +361,7 @@ class FalconAudio:
             "sampling_rate": sampling_rate
         }
 
-        response = requests.post(self.api_url, json=payload, headers=self.headers)
+        response = requests.post(self.api_url, json=payload,verify=False,headers=self.headers)
         if response.status_code == 200:
             return response.json()
         else:
